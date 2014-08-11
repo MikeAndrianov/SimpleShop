@@ -23,7 +23,7 @@
     </div>
 
     <div id="factory_select" class="form-group">
-      <%= render partial: "factories", locals: { builder: f, factories: @product.new_record? ? Company.first.factories.order(:name) : @product.company.factories } %>
+      <%= render partial: "factories", locals: { factories: @product.new_record? ? Company.first.factories.order(:name) : @product.company.factories } %>
     </div>
 
     <div class="form-group">

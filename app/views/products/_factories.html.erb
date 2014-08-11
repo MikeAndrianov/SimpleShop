@@ -1,2 +1,2 @@
-<%= builder.label :factory_id, "factory" %><br />
-<%= builder.select :factory_id, factories.collect{ |factory| [factory.name, factory.id] } , {}, { class: "form-control" } %>
+<%= label_tag "factory" %><br />
+<%= select_tag "product[factory_id]", options_from_collection_for_select(factories, :id, :name), { class: "form-control" } %>
