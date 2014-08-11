@@ -6,8 +6,8 @@ gem 'rails', '3.2.19'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
-gem 'sqlite3', groups: [:development, :test]
-gem 'pg', group: :production
+# gem 'sqlite3', groups: [:development, :test]
+gem 'pg'
 
 gem 'heroku'
 gem 'rails_12factor', group: :production

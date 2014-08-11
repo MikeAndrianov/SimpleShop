@@ -4,7 +4,7 @@ module Search
       # Simple search. It doesn't necessarily to create something more advanced than that for current project
       #
       scope :search, lambda { |query|
-        where('name LIKE ?', "%#{query}%") unless query.blank?
+        where("name ~* ?", query) unless query.blank?
       }
     end
   end
