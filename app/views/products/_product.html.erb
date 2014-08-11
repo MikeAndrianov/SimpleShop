@@ -1,0 +1,20 @@
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <%= image_tag product.img_src, class: "img-rounded" %>
+      <div class="caption">
+        <h3><%= product.name %></h3>
+        <p>
+          <div> <strong> Company: </strong> <%= product.company.name %> </div>
+          <div> <strong> Factory: </strong> <%= product.factory.name %> </div>
+          <div> <strong> Created At: </strong> <%= product.created_at.strftime("%H:%M - %d %b %Y") %> </div>
+          <div> <strong> Updated At: </strong> <%= product.updated_at.strftime("%H:%M - %d %b %Y") %> </div>
+        </p>
+        <% if admin? %>
+          <p>
+            <td><%= link_to 'Edit', edit_product_path(product), class: "btn btn-default" %></td>
+            <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+          </p>
+        <% end %>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<h1>
+  Factories
+  <%= link_to 'Add Factory', new_factory_path, class: "btn btn-success btn-xs" if admin? %>
+</h1>
+
+<h5> Formats: 
+  <%= link_to "CSV", factories_path(format: :csv) %> | 
+  <%= link_to "XML", factories_path(format: :xml) %> | 
+  <%= link_to "JSON", factories_path(format: :json) %> 
+</h5>
+
+<%= render "shared/search_form", path: companies_path %>
+
+<ul class="nav nav-tabs buffer_bottom" role="tablist">
+  <%= content_tag :li, class: "active" do %>
+    <%= link_to factories_path(list_view: true) do %><span class="glyphicon glyphicon-th-list"></span> List view <% end %>
+  <% end %>
+</ul>
+
+<table class="table table-striped">
+  <thead class="sortable">
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "address" %></th>
+    <th><%= sortable "created_at" %> </th>
+    <th><%= sortable "updated_at" %> </th>
+    <% if admin? %>
+      <th></th>
+      <th></th>
+    <% end %>
+  </thead>
+
+<% @factories.each do |factory| %>
+  <tr>
+    <td> <%= link_to factory.name, factory %> </td>
+    <td><%= factory.address %></td>
+    <td><%= factory.created_at.strftime("%H:%M - %d %b %Y") %></td>
+    <td><%= factory.updated_at.strftime("%H:%M - %d %b %Y") %></td>
+    <% if admin? %>
+      <td><%= link_to 'Edit', edit_factory_path(factory) %></td>
+      <td><%= link_to 'Destroy', factory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @factories, renderer: BootstrapPagination::Rails %>
+<br />

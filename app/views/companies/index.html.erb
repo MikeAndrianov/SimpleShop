@@ -1,0 +1,52 @@
+<h1>
+  Companies
+  <%= link_to 'Add Company', new_company_path, class: "btn btn-success btn-xs" if admin? %>
+</h1>
+
+<h5> Formats: 
+  <%= link_to "CSV", companies_path(format: :csv) %> | 
+  <%= link_to "XML", companies_path(format: :xml) %> | 
+  <%= link_to "JSON", companies_path(format: :json) %> 
+</h5>
+
+<%= render "shared/search_form", path: companies_path %>
+
+<ul class="nav nav-tabs buffer_bottom" role="tablist">
+  <%= content_tag :li, class: "active" do %>
+    <%= link_to companies_path(list_view: true) do %><span class="glyphicon glyphicon-th-list"></span> List view <% end %>
+  <% end %>
+</ul>
+
+<table class="table table-striped">
+  <thead class="sortable">
+    <th><%= sortable "name" %></th>
+    <th>Factories</th>
+    <th><%= sortable "created_at" %> </th>
+    <th><%= sortable "updated_at" %> </th>
+    <% if admin? %>
+      <th></th>
+      <th></th>
+    <% end %>
+  </thead>
+
+<% @companies.each do |company| %>
+  <tr>
+    <td> <%= link_to company.name, company %> </td>
+    <td> 
+      <ul>
+        <% company.factories.each do |factory| %>
+          <li> <%= link_to factory.name, factory %> </li>
+        <% end %>
+      </ul>
+    <td><%= company.created_at %></td>
+    <td><%= company.updated_at %></td>
+    <% if admin? %>
+      <td><%= link_to 'Edit', edit_company_path(company) %></td>
+      <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @companies, renderer: BootstrapPagination::Rails %>
+<br />

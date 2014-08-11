@@ -1,0 +1,34 @@
+<h1>
+  Products
+  <%= link_to 'Add Product', new_product_path, class: "btn btn-success btn-xs" if admin? %>
+</h1>
+
+<h5> Formats: 
+  <%= link_to "CSV", products_path(format: :csv) %> | 
+  <%= link_to "XML", products_path(format: :xml) %> | 
+  <%= link_to "JSON", products_path(format: :json) %> 
+</h5>
+
+<%= render "shared/search_form", path: products_path %>
+
+<ul class="nav nav-tabs" role="tablist">
+  <%= content_tag :li, class: ("active" unless params[:list_view]) do %>
+    <%= link_to products_path do %><span class="glyphicon glyphicon-th"></span> Grid view <% end %>
+  <% end %>
+  <%= content_tag :li, class: ("active" if params[:list_view]) do %>
+    <%= link_to products_path(list_view: true) do %><span class="glyphicon glyphicon-th-list"></span> List view <% end %>
+  <% end %>
+</ul>
+
+<% if params[:list_view] %>
+  <%= render "products_list", products: @products %>
+<% else %>
+  <div class="row buffer_top">
+    <% @products.each do |product| %>
+      <%= render product %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= will_paginate @products, renderer: BootstrapPagination::Rails %>
+<br />

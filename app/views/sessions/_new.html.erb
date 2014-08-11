@@ -1,0 +1,13 @@
+  <% if session[:password] %>
+    <li>
+      <%= link_to "Logout", logout_path %> 
+    </li>
+  <% else %>
+    <%= form_tag login_path, { class: "navbar-form" } do %>
+      <li class="form-group">
+        Password: 
+        <%= password_field_tag :password, {}, class: "form-control" %>
+      </li>
+      <%= submit_tag "Login", class: "btn btn-default" %>
+    <% end %>
+  <% end %>

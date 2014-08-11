@@ -1,0 +1,29 @@
+<table class="table table-striped buffer_top">
+  <thead class="sortable">
+    <th> <%= sortable "name" %> </th>
+    <th></th>
+    <th>Company</th>
+    <th>Factory</th>
+    <th><%= sortable "created_at" %> </th>
+    <th><%= sortable "updated_at" %> </th>
+    <% if admin? %>
+      <th></th>
+      <th></th>
+    <% end %>      
+  </thead>
+
+  <% products.each do |product| %>
+    <tr>
+      <td><%= link_to product.name, product %></td>
+      <td><%= image_tag product.img_src, class: "img-rounded small-img" if product.img_src %></td>
+      <td><%= product.company.name %></td>
+      <td><%= product.factory.name %></td> 
+      <td><%= product.created_at.strftime("%H:%M - %d %b %Y") %></td>
+      <td><%= product.updated_at.strftime("%H:%M - %d %b %Y") %></td>
+      <% if admin? %>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

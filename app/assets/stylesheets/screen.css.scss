@@ -1,0 +1,22 @@
+.form-group div{
+  display: inline;
+}
+
+#error_explanation{
+  background-color: #faf3e9;
+  border-left: 3px solid #f0ad4e;
+  padding: 5px 20px;
+  margin: 20px 0;
+}
+
+.small-img{
+  height: 50px;
+}
+
+.sortable th span.glyphicon{
+  margin-left: 5px;
+  font-size: 10px;
+}
+
+.buffer_top{ margin-top: 20px; }
+.buffer_bottom{ margin-bottom: 20px; }
