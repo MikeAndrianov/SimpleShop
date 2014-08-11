@@ -5,7 +5,12 @@ gem 'rails', '3.2.19'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+
+gem 'sqlite3', groups: [:development, :test]
+gem 'pg', group: :production
+
+gem 'heroku'
+gem 'rails_12factor', group: :production
 
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 3.2.0'
