@@ -1,2 +1,2 @@
 <%= label_tag "factory" %><br />
-<%= select_tag "product[factory_id]", options_from_collection_for_select(factories, :id, :name), { class: "form-control" } %>
+<%= select_tag "product[factory_id]", options_from_collection_for_select(factories, :id, :name, product.factory_id), { class: "form-control" } %>
