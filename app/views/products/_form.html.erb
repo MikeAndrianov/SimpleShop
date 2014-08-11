@@ -1,43 +1,48 @@
 <div class="row">
-  <%= form_for @product, html: { role: :form, class: "col-md-6" } do |f| %>
-    <% if @product.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+  <%= form_for @product, html: { role: :form, class: "col-md-12" } do |f| %>
+    <div class="col-md-6">
+      <% if @product.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-        <ul>
-        <% @product.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+          <ul>
+          <% @product.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, class: "form-control"  %>
       </div>
-    <% end %>
 
-    <div class="form-group">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, class: "form-control"  %>
+      <div class="form-group">
+        <%= label_tag "company" %><br />
+        <%= select_tag "company", options_for_select(Company.all.map{ |company| [company.name, company.id] }, @product.new_record? ? Company.first : @product.company.id), class: "form-control" %>
+      </div>
+
+      <div id="factory_select" class="form-group">
+        <%= render partial: "factories", locals: { factories: @product.new_record? ? Company.first.factories.order(:name) : @product.company.factories } %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :img_src, "Image link" %><br />
+        <%= f.text_field :img_src, class: "form-control"  %>
+      </div>
+
     </div>
 
-    <div class="form-group">
-      <%= label_tag "company" %><br />
-      <%= select_tag "company", options_for_select(Company.all.map{ |company| [company.name, company.id] }, @product.new_record? ? Company.first : @product.company.id), class: "form-control" %>
-    </div>
-
-    <div id="factory_select" class="form-group">
-      <%= render partial: "factories", locals: { factories: @product.new_record? ? Company.first.factories.order(:name) : @product.company.factories } %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :img_src, "Image link" %><br />
-      <%= f.text_field :img_src, class: "form-control"  %>
+    <div id="preview" class="col-md-6 buffer_bottom">
+      <%= render "image", src: @product.img_src if @product.img_src %>
     </div>
 
     <div class="actions">
       <%= f.submit nil, class: "btn btn-success" %>
     </div>
+
   <% end %>
 
-  <div id="preview" class="col-md-6 buffer-top">
-    <%= render "image", src: @product.img_src if @product.img_src %>
-  </div>
 </div>
 
